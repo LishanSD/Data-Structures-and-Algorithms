@@ -13,33 +13,40 @@ vector<string> split(const string &);
  * The function accepts INTEGER_ARRAY arr as parameter.
  */
 
-void quickSortHelper(vector<int> &arr, int low, int high)
-{
-    if (low >= high)
-        return;
-
-    int pivot = arr[low];
-    int i = low + 1, j = high;
-
-    while (i <= j)
-    {
-        while (i <= high && arr[i] <= pivot)
-            i++;
-        while (j > low && arr[j] > pivot)
-            j--;
-        if (i < j)
-            swap(arr[i], arr[j]); // swap misplaced elements
-    }
-    swap(arr[low], arr[j]); // place pivot in correct position
-
-    // recursive sort left and right
-    quickSortHelper(arr, low, j - 1);
-    quickSortHelper(arr, j + 1, high);
-}
-
 vector<int> quickSort(vector<int> arr)
 {
-    quickSortHelper(arr, 0, arr.size() - 1);
+    int p = arr[0];
+    int j = 0, k = 0;
+    int n = 0;
+
+    for (int i : arr)
+    {
+        n = n + 1;
+    }
+
+    int out_arr[n];
+
+    for (int i = 0; i < n; i++)
+    {
+        if (arr[i] < p)
+        {
+            out_arr[j] = arr[i];
+            j = j + 1;
+        }
+        else if (arr[i] > p)
+        {
+            out_arr[n - 1 - k] = arr[i];
+            k = k + 1;
+        }
+    }
+
+    out_arr[j] = p;
+
+    for (int i = 0; i < n; i++)
+    {
+        arr[i] = out_arr[i];
+    }
+
     return arr;
 }
 
