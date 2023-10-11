@@ -2,22 +2,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-void insertionSort(int array[], int size)
+void insertionSort(int arr[], int n)
 {
-    int currentIndex, key, previousIndex;
-
-    for (currentIndex = 1; currentIndex < size; currentIndex++)
+    int i, key, j;
+    for (i = 1; i < n; i++)
     {
-        key = array[currentIndex];
-        previousIndex = currentIndex - 1;
+        key = arr[i];
+        j = i - 1;
 
-        while (previousIndex >= 0 && array[previousIndex] > key)
+        while (j >= 0 && arr[j] > key)
         {
-            array[previousIndex + 1] = array[previousIndex];
-            previousIndex--;
+            arr[j + 1] = arr[j];
+            j = j - 1;
         }
-
-        array[previousIndex + 1] = key;
+        arr[j + 1] = key;
     }
 }
 
