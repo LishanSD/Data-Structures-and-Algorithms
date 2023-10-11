@@ -1,49 +1,70 @@
 #include <iostream>
 using namespace std;
 
-struct Node
+struct node
 {
   int key;
-  Node *left, *right;
-
-  Node(int k) : key(k), left(nullptr), right(nullptr) {}
+  struct node *left, *right;
 };
 
-// Utility: Find minimum node in a subtree
-Node *minNode(Node *root)
+struct node *createNode(int key)
 {
-  while (root && root->left)
-    root = root->left;
-  return root;
+  struct node *temp = (struct node *)malloc(sizeof(struct node));
+  temp->key = key;
+  temp->left = temp->right = NULL;
+  return temp;
 }
 
-// Inorder traversal (LNR)
-void traverseInOrder(const Node *root)
+struct node *minNode(struct node *node)
 {
-  if (!root)
+  struct node *current = node;
+
+  while (current && current->left != NULL)
+    current = current->left;
+
+  return current;
+}
+
+// Inorder traversal
+void traverseInOrder(struct node *root)
+{
+  if (root == NULL)
+  {
     return;
+  }
+
   traverseInOrder(root->left);
   cout << root->key << " ";
   traverseInOrder(root->right);
 }
 
 // Insert a node
-Node *insertNode(Node *root, int key)
+struct node *insertNode(struct node *node, int key)
 {
-  if (!root)
-    return new Node(key);
-  if (key < root->key)
-    root->left = insertNode(root->left, key);
+  if (node == NULL)
+  {
+    return createNode(key);
+  }
+
+  if (key < node->key)
+  {
+    node->left = insertNode(node->left, key);
+  }
   else
-    root->right = insertNode(root->right, key);
-  return root;
+  {
+    node->right = insertNode(node->right, key);
+  }
+
+  return node;
 }
 
-// Delete a node
-Node *deleteNode(Node *root, int key)
+// Deleting a node
+struct node *deleteNode(struct node *root, int key)
 {
-  if (!root)
-    return nullptr;
+  if (root == NULL)
+  {
+    return root;
+  }
 
   if (key < root->key)
   {
@@ -55,44 +76,49 @@ Node *deleteNode(Node *root, int key)
   }
   else
   {
-    // Node with one child or no child
-    if (!root->left)
+    if (root->left == NULL)
     {
-      Node *temp = root->right;
-      delete root;
+      struct node *temp = root->right;
+      free(root);
       return temp;
     }
-    else if (!root->right)
+    else if (root->right == NULL)
     {
-      Node *temp = root->left;
-      delete root;
+      struct node *temp = root->left;
+      free(root);
       return temp;
     }
-    // Node with two children: Get inorder successor
-    Node *temp = minNode(root->right);
+
+    struct node *temp = minNode(root->right);
     root->key = temp->key;
     root->right = deleteNode(root->right, temp->key);
   }
+
   return root;
 }
 
-// Driver
+// Driver code
 int main()
 {
-  Node *root = nullptr;
+  struct node *root = NULL;
 
-  int operation, operand;
-  while (cin >> operation && operation != -1)
+  int operation;
+  int operand;
+  cin >> operation;
+
+  while (operation != -1)
   {
     switch (operation)
     {
     case 1: // insert
       cin >> operand;
       root = insertNode(root, operand);
+      cin >> operation;
       break;
     case 2: // delete
       cin >> operand;
       root = deleteNode(root, operand);
+      cin >> operation;
       break;
     default:
       cout << "Invalid Operator!\n";
@@ -101,5 +127,4 @@ int main()
   }
 
   traverseInOrder(root);
-  cout << endl;
 }
