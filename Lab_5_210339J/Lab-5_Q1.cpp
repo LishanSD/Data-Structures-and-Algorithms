@@ -1,4 +1,9 @@
-#include <bits/stdc++.h>
+#include <iostream>
+#include <fstream>
+#include <string>
+#include <vector>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
@@ -50,9 +55,6 @@ vector<int> quickSort(vector<int> arr)
     return arr;
 }
 
-/*
- * This function reads an integer n and n integers from the standard input, sorts them using quick sort and writes the sorted integers to the standard output.
- */
 int main()
 {
     ofstream fout(getenv("OUTPUT_PATH"));
