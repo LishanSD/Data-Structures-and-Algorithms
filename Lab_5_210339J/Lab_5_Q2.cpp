@@ -2,21 +2,22 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-
-void insertionSort(int arr[], int n)
+void insertionSort(int array[], int size)
 {
-    int i, key, j;
-    for (i = 1; i < n; i++)
+    int currentIndex, key, previousIndex;
+
+    for (currentIndex = 1; currentIndex < size; currentIndex++)
     {
-        key = arr[i];
-        j = i - 1;
- 
-        while (j >= 0 && arr[j] > key)
+        key = array[currentIndex];
+        previousIndex = currentIndex - 1;
+
+        while (previousIndex >= 0 && array[previousIndex] > key)
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            array[previousIndex + 1] = array[previousIndex];
+            previousIndex--;
         }
-        arr[j + 1] = key;
+
+        array[previousIndex + 1] = key;
     }
 }
 
@@ -27,39 +28,44 @@ void printArray(int arr[], int n)
         cout << arr[i] << " ";
     cout << endl;
 }
- 
 
-int main(){
-  int sz;
-  cout << "Enter the size of array::";
-  cin >> sz;
+int main()
+{
+    int sz;
+    cout << "Enter the size of array::";
+    cin >> sz;
 
-  int arr[sz];
+    int arr[sz];
 
-  for(int i = 0; i < sz; i++){
-    cout << "Enter the value " << i+1 << " : ";
-    cin >> arr[i];
-  }
-
-  for(int i = 0; i < sz; i++){
-    float m;
-    int tempArr[i+1]; 
-    for(int j = 0; j < i+1; j++){
-        tempArr[j] = arr[j];
+    for (int i = 0; i < sz; i++)
+    {
+        cout << "Enter the value " << i + 1 << " : ";
+        cin >> arr[i];
     }
 
-    insertionSort(tempArr, i+1);
+    for (int i = 0; i < sz; i++)
+    {
+        float m;
+        int tempArr[i + 1];
+        for (int j = 0; j < i + 1; j++)
+        {
+            tempArr[j] = arr[j];
+        }
 
-    if((i+1) % 2 == 0){
-        m = float(tempArr[(i+1) / 2] + tempArr[(i-1) / 2]) / 2;
-    }
-    else {
-        m = tempArr[i/2];
-    }
+        insertionSort(tempArr, i + 1);
 
-    printArray(tempArr, i+1);
-    cout << "median : " << fixed << setprecision(1) << m << endl;
-    cout << "\n";
-  }
-  return 0;
+        if ((i + 1) % 2 == 0)
+        {
+            m = float(tempArr[(i + 1) / 2] + tempArr[(i - 1) / 2]) / 2;
+        }
+        else
+        {
+            m = tempArr[i / 2];
+        }
+
+        printArray(tempArr, i + 1);
+        cout << "median : " << fixed << setprecision(1) << m << endl;
+        cout << "\n";
+    }
+    return 0;
 }
