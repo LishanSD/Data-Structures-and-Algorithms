@@ -1,8 +1,8 @@
 #include <iostream>
+#include <bits/stdc++.h>
 #include <algorithm>
 #include <chrono>
 #include <vector>
-#include <cstdlib>
 using namespace std;
 using namespace std::chrono;
 
