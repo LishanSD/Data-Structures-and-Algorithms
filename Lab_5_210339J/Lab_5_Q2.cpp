@@ -4,18 +4,18 @@ using namespace std;
 
 void insertionSort(int arr[], int n)
 {
-    int i, key, j;
-    for (i = 1; i < n; i++)
+    for (int i = 1; i < n; i++)
     {
-        key = arr[i];
-        j = i - 1;
+        int key = arr[i];
+        int j = i - 1;
 
+        // Instead of multiple swaps, shift elements
         while (j >= 0 && arr[j] > key)
         {
-            arr[j + 1] = arr[j];
-            j = j - 1;
+            arr[j + 1] = arr[j]; // shift
+            j--;
         }
-        arr[j + 1] = key;
+        arr[j + 1] = key; // place key in correct position
     }
 }
 
