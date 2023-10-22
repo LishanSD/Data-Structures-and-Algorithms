@@ -12,30 +12,24 @@ string rtrim(const string &);
  * The function accepts INTEGER year as parameter.
  */
 
-#include <string>
-using namespace std;
-
 string dayOfProgrammer(int year)
 {
-    int day;
+    int dayOfYear;
 
-    if (year == 1918)
+    if (year < 1918)
     {
-        // Special transition year: February 14th was the 32nd day of the year
-        day = 26;
+        dayOfYear = (year % 4 == 0) ? 12 : 13;
     }
-    else if (year < 1918)
+    else if (year == 1918)
     {
-        // Julian calendar
-        day = (year % 4 == 0) ? 12 : 13;
+        dayOfYear = 26;
     }
     else
     {
-        // Gregorian calendar
-        day = (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) ? 12 : 13;
+        dayOfYear = (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) ? 12 : 13;
     }
 
-    return to_string(day) + ".09." + to_string(year);
+    return to_string(dayOfYear) + ".09." + to_string(year);
 }
 
 int main()
