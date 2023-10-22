@@ -14,22 +14,40 @@ string rtrim(const string &);
 
 string dayOfProgrammer(int year)
 {
-    int dayOfYear;
+    int day;
 
     if (year < 1918)
     {
-        dayOfYear = (year % 4 == 0) ? 12 : 13;
+        if (year % 4 == 0)
+        {
+            day = 12;
+        }
+        else
+        {
+            day = 13;
+        }
     }
     else if (year == 1918)
     {
-        dayOfYear = 26;
+        day = 26;
     }
-    else
+    else if (1918 < year)
     {
-        dayOfYear = (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) ? 12 : 13;
+        if (year % 400 == 0)
+        {
+            day = 12;
+        }
+        else if (year % 4 == 0 && year % 100 != 0)
+        {
+            day = 12;
+        }
+        else
+        {
+            day = 13;
+        }
     }
 
-    return to_string(dayOfYear) + ".09." + to_string(year);
+    return to_string(day) + ".09." + to_string(year);
 }
 
 int main()
