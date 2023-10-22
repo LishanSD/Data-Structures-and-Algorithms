@@ -12,30 +12,27 @@ string rtrim(const string &);
  * The function accepts INTEGER year as parameter.
  */
 
-string dayOfProgrammer(int year) {
+#include <string>
+using namespace std;
+
+string dayOfProgrammer(int year)
+{
     int day;
 
-    if (year < 1918) {
-        if (year % 4 == 0) {
-            day = 12;
-        }
-        else {
-            day = 13;
-        }
-    }
-    else if (year == 1918) {
+    if (year == 1918)
+    {
+        // Special transition year: February 14th was the 32nd day of the year
         day = 26;
     }
-    else if (1918 < year) {
-        if (year % 400 == 0) {
-            day = 12;
-        }
-        else if (year % 4 == 0 && year % 100 != 0) {
-            day = 12;
-        }
-        else {
-            day = 13;
-        }
+    else if (year < 1918)
+    {
+        // Julian calendar
+        day = (year % 4 == 0) ? 12 : 13;
+    }
+    else
+    {
+        // Gregorian calendar
+        day = (year % 400 == 0 || (year % 4 == 0 && year % 100 != 0)) ? 12 : 13;
     }
 
     return to_string(day) + ".09." + to_string(year);
@@ -59,24 +56,24 @@ int main()
     return 0;
 }
 
-string ltrim(const string &str) {
+string ltrim(const string &str)
+{
     string s(str);
 
     s.erase(
         s.begin(),
-        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace)))
-    );
+        find_if(s.begin(), s.end(), not1(ptr_fun<int, int>(isspace))));
 
     return s;
 }
 
-string rtrim(const string &str) {
+string rtrim(const string &str)
+{
     string s(str);
 
     s.erase(
         find_if(s.rbegin(), s.rend(), not1(ptr_fun<int, int>(isspace))).base(),
-        s.end()
-    );
+        s.end());
 
     return s;
 }
